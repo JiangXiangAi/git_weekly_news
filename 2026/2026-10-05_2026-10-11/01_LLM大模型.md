@@ -175,28 +175,28 @@ flowchart TD
 
 **技术判断与边界：** Ollama 更适合降低本地原型和个人推理的启用成本，真正部署仍需处理服务监听、并发、模型来源和资源限制；命令启动成功只能证明运行链路基本打通，不等于具有生产安全性。
 
-### 8. [AirLLM](https://github.com/lyogavin/airllm) — 以分层权重搬运换取较低显存占用
+### 8. [DeepGEMM-Ascend](https://github.com/deepseek-ai/DeepGEMM-Ascend) — 面向昇腾 NPU 的低层矩阵乘法内核
 
 **技术分析**
 
-**当模型权重无法一次性放入 GPU [显存](https://www.google.com/search?q=%E6%98%BE%E5%AD%98%20%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%20%E8%A7%A3%E9%87%8A "显存：承载权重、激活和 KV Cache，峰值占用受并发与上下文影响")时，常规推理加载路径会失败。** **AirLLM 的思路是通过分层加载或卸载权重，在 CPU 内存、存储与 GPU 之间搬运当前执行所需的层，以空间换取可运行性。**其本质不是让模型计算量消失，而是改变权重驻留策略：峰值显存可能下降，但数据搬运、磁盘 I/O、初始化和层切换会引入延迟。效果取决于模型层大小、存储速度、内存容量、缓存策略和请求并发；在多用户服务中，低显存单请求可运行不代表吞吐可接受。阅读时要区分权重切片、加载调度与模型计算本身，检查是否存在重复读盘、内存缓存以及对多卡的支持。基准应报告首 token 延迟、每 token 延迟、磁盘读量、峰值 RAM/VRAM 和输出质量。它适合探索资源受限设备的可运行性，不应未经测量就被视为高性能生产推理方案。
+LLM 推理成本不只由模型结构决定，还取决于 GEMM（通用矩阵乘法）内核是否能把目标加速器的矩阵单元、内存布局和流水线用满。DeepGEMM-Ascend 将 DeepGEMM 的接口路线移植到华为 Ascend 平台，公开说明支持 BF16、FP8、FP4 GEMM、MQA logits 与 MegaMoE。它对 Ascend 的 MAD（矩阵乘加）原语提供轻量封装，隐藏分形矩阵布局、对齐和地址计算等细节，并使用稀疏数据加载、基于协程的流水线以及 JIT 编译路径减少低层调用负担。**这是一条“为硬件重写算子并保持上层 API 相对稳定”的移植路线，而不是将 CUDA kernel 原样运行在另一种加速器上。** 官方 README 给出的基准条件是 Ascend 950DT、CANN 9.20、冷 L2 cache、bench_msprof；在 M=4096、N=7168、K=16384 的 FP8×FP8 测试中，项目报告 1117.6 μs、861 TFLOPS，约为该表列出的 865 TFLOPS 硬件上限的 99.5%。这是特定形状、特定设备下的项目方测量，不能外推到所有矩阵大小或端到端模型生成；小 batch、内存瓶颈、量化 scale 布局和多卡通信都会改变表现。另需区分官方 README 标注的初始 release 日期（2026-09-30）与 10 月 7 日媒体集中报道该 Ascend 工具链的时间。
 
 **项目结构图**
 
 ```mermaid
 %%{init: {"flowchart": {"useMaxWidth": true, "nodeSpacing": 20, "rankSpacing": 24, "curve": "linear"}, "themeVariables": {"fontSize": "12px"}}}%%
 flowchart TD
-  A[分层模型权重] --> B[层加载调度]
-  C[CPU RAM / 磁盘缓存] <--> B
-  B --> D[GPU 当前层权重]
-  E[隐藏状态] --> F[当前层前向计算]
-  D --> F
-  F --> G[下一层隐藏状态]
-  G --> B
-  G --> H[最终 logits / 采样]
+  A[模型算子调用：GEMM / MQA / MegaMoE] --> B[Python API 与参数/形状检查]
+  B --> C[精度格式与 Scale Layout 转换]
+  C --> D[DeepJIT 运行时编译/配置选择]
+  D --> E[Ascend MAD Kernel]
+  E --> F[稀疏加载/协程流水线]
+  F --> G[输出张量与基准计时]
+  H[ACLNN 参考算子/测试] --> I[正确性对照]
+  G --> I
 ```
 
-**技术判断与边界：** AirLLM 以主存/存储与 GPU 之间的权重搬运换取更低显存占用；当数据搬运成为瓶颈时，能跑更大的模型可能伴随更差的首 token 和逐 token 延迟，需按实际负载衡量权衡。
+**技术判断与边界：** 该项目的关键贡献是把高性能 GEMM 的内存布局、精度格式和流水线优化做成公开可检查的 Ascend 实现；它能证明特定 kernel shape 接近项目所报告的硬件上限，却不能单独证明模型级 tokens/s、能耗或多租户服务优势。真正有说服力的比较需要固定设备、CANN、模型、batch、上下文、量化和基准脚本，并同时报告正确性、延迟与端到端吞吐。
 
 ### 9. [Text Generation Inference](https://github.com/huggingface/text-generation-inference) — 生产级模型服务的生命周期管理
 
