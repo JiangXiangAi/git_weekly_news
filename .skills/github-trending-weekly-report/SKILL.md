@@ -5,7 +5,7 @@ description: 生成六个方向的中文技术周报，包含有来源的本周�
 
 # GitHub Trending 技术周报 Skill
 
-**规则版本：** 1.0  
+**规则版本：** 1.1  
 **适用仓库：** JiangXiangAi/git_weekly_news  
 **适用内容：** 1 份综合报告、6 份方向报告，以及本目录的规则维护。
 
