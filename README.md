@@ -7,6 +7,11 @@
 - [2026 年第 41 周：2026-10-05 至 2026-10-11](2026/2026-10-05_2026-10-11/README.md)
 - [综合行业洞察](2026/2026-10-05_2026-10-11/00_综合行业洞察.md)
 
+## 规则沉淀
+
+- [周报 Skill 规范](.skills/github-trending-weekly-report/SKILL.md)：固定章节结构、本周焦点、技术分析、高亮与架构图标准。
+- [规则调整记录](.skills/github-trending-weekly-report/CHANGELOG.md)：保留每次规则变化的原因与验证方法。
+
 ## 报告方法
 
 - 五个主方向：LLM/大模型、AI Agent、自动驾驶、具身智能/世界模型、AI 与数学研究；另设 Other。
