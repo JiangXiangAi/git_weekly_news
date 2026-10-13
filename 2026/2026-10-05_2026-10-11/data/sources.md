@@ -13,7 +13,7 @@
 7. [OpenAI/math 官方仓库](https://github.com/openai/math) — 数学手稿、证明工件、结果目录和项目方对生成流程的说明。
 8. [OpenAI/math 结果概览](https://github.com/openai/math/blob/main/overview.tex) — 结果家族与代表性数学主张的索引；本报告以“仓库声称/列出”表述，未替代独立数学审查。
 9. [OpenAI/math 修订历史](https://github.com/openai/math/blob/main/history.md) — 手稿修订、撤回和更正记录。
-10. [OpenAI/math README](https://github.com/openai/math/blob/main/README.md) — 目录规模、生成流程、形式化覆盖情况和项目方声明。
+10. [OpenAI/math README](https://github.com/openai/math/blob/main/README.md) — 目录规模、生成流程、形式化覆盖情况和项目方声明。\n11. [DeepSeek DeepGEMM-Ascend](https://github.com/deepseek-ai/DeepGEMM-Ascend) — Ascend NPU 的 GEMM、MQA logits 与 MegaMoE 内核实现及项目基准。官方 README 将 initial release 标为 2026-09-30；本期提及的是 10 月 7 日相关基础设施受到报道和关注。\n12. [TechRadar — DeepSeek and Huawei open-source AI tools（2026-10-07）](https://www.techradar.com/pro/huawei-and-deepseek-release-open-source-ai-tools-in-a-bid-to-lower-nvidia-exposure-but-will-programmers-make-the-switch) — 本周公开报道，作事件背景来源，不用于替代官方实现/基准。\n13. [REA 官方仓库](https://github.com/morluto/rea) — 逆向分析工作流、MCP 工具、证据路径和项目声明的限制。\n14. [OpenRig 官方仓库](https://github.com/mvschwarz/openrig) — YAML 拓扑、多 Agent 会话、CLI/TUI/MCP 和快照恢复机制。\n15. [GitTrend Week 41 汇总](https://gittrend.io/weekly/2026-W41) — 第三方周榜线索；与其他周榜存在采样口径差异，不合并其 Star 数。
 
 ## 口径与限制
 
