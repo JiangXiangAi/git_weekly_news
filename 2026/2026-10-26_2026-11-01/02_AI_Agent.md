@@ -15,7 +15,7 @@
 
 **事件二｜2026-10-30，LangGraph 1.2.19：修正流事件命名空间和 tracing 副作用。** [官方 release](https://github.com/langchain-ai/langgraph/releases/tag/1.2.19) 列出 `trace_policy` 不应改写 streamed node payload、嵌套图里的 messages/tools namespace、子图作为节点内流式运行时的输出消息，以及暂停工具不应被报告为失败等修复。这说明观察层自身也可能造成错误事件语义。边界：版本变更是维护证据，还需用户环境中验证嵌套图、远程图、取消与持久化交互。
 
-**事件三｜2026-10-26，LangGraph CLI 0.4.40：部署控制平面响应头透传。** [官方 release](https://github.com/langchain-ai/langgraph/releases/tag/0.4.40) 包含上传路径发送控制平面返回的 headers。这属于部署接入契约的修补而非 Agent 推理创新；它说明数据面和控制面间的握手信息同样会影响运行可靠性。
+**事件三｜2026-10-26，LangGraph CLI 0.4.40：部署控制平面响应头透传。** [官方 release](https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.40) 包含上传路径发送控制平面返回的 headers。这属于部署接入契约的修补而非 Agent 推理创新；它说明数据面和控制面间的握手信息同样会影响运行可靠性。
 
 ## 三、Top 10 项目技术分析
 
