@@ -24,7 +24,7 @@ Agent 编排系统若只记录自然语言对话而忽略检查点、任务命�
 
 **技术分析**
 
-**本周技术对照：** OpenAI Agents SDK 的工具交接、追踪与守卫机制属于运行时编排；LangGraph 本周公开的严格中断恢复改动展示另一种显式状态图路线。两者不应仅以一次演示完成率比较，外部副作用的重复执行必须独立检查。
+本周技术对照： OpenAI Agents SDK 的工具交接、追踪与守卫机制属于运行时编排；LangGraph 本周公开的严格中断恢复改动展示另一种显式状态图路线。两者不应仅以一次演示完成率比较，外部副作用的重复执行必须独立检查。
 
 **OpenAI Agents SDK 的运行循环把模型输出、工具调用、角色交接和追踪拆为可观察的阶段，但不代替权限判断。**
 
@@ -58,7 +58,7 @@ flowchart TD
 
 **技术分析**
 
-**本周关联证据（2026-11-04—06）：** [严格恢复](https://github.com/langchain-ai/langgraph/commit/dbc60dd112a5492f52642b27bac021727ddc6fcd)、[中断 ID 唯一化](https://github.com/langchain-ai/langgraph/commit/6ea1751a93bda2b57bbf38dea494c461c34e13df) 与 [子图状态命名空间修复](https://github.com/langchain-ai/langgraph/commit/22025bbdbe2a8e0653c93d35f8ac357d3a392e9e) 形成连续修复链；编排层要同时界定回答身份、checkpoint 归属与错误拒绝时机。
+本周关联证据（2026-11-04—06）： [严格恢复](https://github.com/langchain-ai/langgraph/commit/dbc60dd112a5492f52642b27bac021727ddc6fcd)、[中断 ID 唯一化](https://github.com/langchain-ai/langgraph/commit/6ea1751a93bda2b57bbf38dea494c461c34e13df) 与 [子图状态命名空间修复](https://github.com/langchain-ai/langgraph/commit/22025bbdbe2a8e0653c93d35f8ac357d3a392e9e) 形成连续修复链；编排层要同时界定回答身份、checkpoint 归属与错误拒绝时机。
 
 **LangGraph 采用显式状态图、checkpoint 与恢复边界，使长期 Agent 执行能够区分完成节点和待运行节点。**
 
