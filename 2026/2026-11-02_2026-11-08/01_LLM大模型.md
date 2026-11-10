@@ -26,7 +26,7 @@
 
 **技术分析**
 
-**本周关联证据（2026-11-06）：** [vLLM #66048](https://github.com/vllm-project/vllm/commit/4d82b56913be009d97c59fb13e471bde14948e1f) 在推测解码的拒绝采样阶段为避免 warp 间读写竞态使用单 warp；这是资源并发正确性修复，不等于推测解码加速比提升。
+本周关联证据（2026-11-06）： [vLLM #66048](https://github.com/vllm-project/vllm/commit/4d82b56913be009d97c59fb13e471bde14948e1f) 在推测解码的拒绝采样阶段为避免 warp 间读写竞态使用单 warp；这是资源并发正确性修复，不等于推测解码加速比提升。
 
 **vLLM 的优势来自把 KV 缓存块生命周期与动态请求调度结合，而不是仅仅增加静态批次大小。**
 
@@ -58,7 +58,7 @@ flowchart TD
 
 **技术分析**
 
-**本周关联证据（2026-11-08）：** [SGLang #49156](https://github.com/sgl-project/sglang/commit/842b4738315fed2246b04a6fbe92fd6bb311ac25) 让 Mooncake KV 缓冲注册被拒时明确报错。分离式 KV 缓存的状态契约必须先成立，再谈跨节点吞吐。
+本周关联证据（2026-11-08）： [SGLang #49156](https://github.com/sgl-project/sglang/commit/842b4738315fed2246b04a6fbe92fd6bb311ac25) 让 Mooncake KV 缓冲注册被拒时明确报错。分离式 KV 缓存的状态契约必须先成立，再谈跨节点吞吐。
 
 **SGLang 试图用前缀复用和结构化生成接口缩短重复计算路径，但其收益依赖共享前缀的实际比例。**
 
@@ -210,7 +210,7 @@ flowchart TD
 
 **技术分析**
 
-**本周关联证据（2026-11-07）：** [Ollama #19587](https://github.com/ollama/ollama/commit/5e983d4f800053c6f5691496b675c3212aa8099d) 重新限定 Claude Code 的服务路由开关，说明本地部署的协议正确性还取决于环境变量与配置优先级。
+本周关联证据（2026-11-07）： [Ollama #19587](https://github.com/ollama/ollama/commit/5e983d4f800053c6f5691496b675c3212aa8099d) 重新限定 Claude Code 的服务路由开关，说明本地部署的协议正确性还取决于环境变量与配置优先级。
 
 **Ollama 将模型拉取、加载、推理及本地 API 组织为统一生命周期，但易用性不等于底层性能领先。**
 
