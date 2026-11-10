@@ -26,7 +26,7 @@ Agent、评测、分布式 Serve 的共同风险是：上层返回了看似成�
 
 **技术分析**
 
-**本周关联证据：** 11 月 4 日 [assistant gateway 第三方认证修复](https://github.com/mlflow/mlflow/commit/513e15966d671754b166c656c01b63735261ba7e) 为内部自调用携带受限凭证上下文；11 月 5 日 [MCP Click flag 修复](https://github.com/mlflow/mlflow/commit/a0d9ea338a16d5284f04497a543e7d88133a7664) 校正 JSON Schema 与布尔参数的类型边界。两者均是接口正确性，不是 LLM 质量基准。
+本周关联证据： 11 月 4 日 [assistant gateway 第三方认证修复](https://github.com/mlflow/mlflow/commit/513e15966d671754b166c656c01b63735261ba7e) 为内部自调用携带受限凭证上下文；11 月 5 日 [MCP Click flag 修复](https://github.com/mlflow/mlflow/commit/a0d9ea338a16d5284f04497a543e7d88133a7664) 校正 JSON Schema 与布尔参数的类型边界。两者均是接口正确性，不是 LLM 质量基准。
 
 **MLflow 将参数、指标与工件绑定为可溯源运行记录，只有数据和代码版本也固定时才构成实验复现。**
 
@@ -293,7 +293,7 @@ flowchart TD
 
 **技术分析**
 
-**本周关联证据（2026-11-05）：** [Ray Serve #67785](https://github.com/ray-project/ray/commit/38e2b51a01776a04424b64aa27a4d97db49eac4b) 使服务日志接管后的 `print` 对自定义文件句柄保持原生参数展开语义；即使是观测路径小缺陷，也可能误导分布式故障定位。
+本周关联证据（2026-11-05）： [Ray Serve #67785](https://github.com/ray-project/ray/commit/38e2b51a01776a04424b64aa27a4d97db49eac4b) 使服务日志接管后的 `print` 对自定义文件句柄保持原生参数展开语义；即使是观测路径小缺陷，也可能误导分布式故障定位。
 
 **Ray 通过 task、actor 和对象存储抽象资源分配，执行回调的生命周期属于分布式正确性问题。**
 
